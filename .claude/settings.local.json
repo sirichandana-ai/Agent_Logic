@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python main.py \"C:/Users/HP/Downloads/1.md\")",
+      "Bash(python main.py \"C:/Users/HP/Downloads/2.md\")",
+      "Bash(git add invoice_agent/agent/input_parser/markdown_parser.py invoice_agent/agent/resolver/column_aliases.py invoice_agent/agent/resolver/item_normalizer.py main.py)",
+      "Bash(git commit:*)",
+      "Bash(git push -u origin claude/intelligent-kapitsa)"
+    ]
+  }
+}

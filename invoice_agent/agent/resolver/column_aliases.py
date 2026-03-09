@@ -1,0 +1,31 @@
+ALIASES = {
+    "hsn": ["hsn", "hsncode", "hsnno", "sac", "saccode"],
+    "product_name": [
+        "product",
+        "productname",
+        "item",
+        "itemname",
+        "description",
+        "descrption",
+        "medicine",
+        "particulars",
+    ],
+    "company": ["mfg", "manufacturer", "company", "brand", "mfr"],
+    "batch": ["batch", "batchno", "batchnumber", "batch#", "lot", "lotno"],
+    "expiry": ["exp", "expiry", "expdate", "expirydate", "expdt", "usebefore"],
+    "pack": ["pack", "packing", "size", "uom", "unit"],
+    "barcode": ["barcode", "bar_code", "barcodeno"],
+    "code": ["code", "itemcode", "productcode", "sku"],
+    "quantity": ["quantity", "qty", "qnty", "quantty", "units", "pcs", "nos", "noofunits", "olv"],
+    "free_quantity": ["free", "freeqty", "freequantity", "bonus", "schqty", "schemeqty"],
+    "rate": ["rate", "price", "unitrate", "unitprice", "ptr"],
+    "amount": ["amount", "total", "taxablevalue", "value", "taxable", "lineamount"],
+    "mrp": ["mrp", "mrpprice", "mrpvalue"],
+    "gst_percent": ["gst", "gstpercent", "gst%", "tax", "tax%", "gstper", "gst rate"],
+    "discount_percent": ["discount", "discountpercent", "disc", "disc%", "dis%", "discount%"],
+    "cgst": ["cgst", "cgstamt", "cgstamount"],
+    "sgst": ["sgst", "sgstamt", "sgstamount"],
+    "igst": ["igst", "igstamt", "igstamount"],
+}
+
+CANONICAL_FIELDS = list(ALIASES.keys())

@@ -1,0 +1,8 @@
+MFG Hsn Product Name Pack Batch Exp Qty Free Rate Amount M.R.P Gst% Dis%
+AB 3004 ITEM ONE 10S B11 12/27 2 0 100 200 150 12 0
+CD 3005 ITEM TWO 5S B12 11/28 3 1 50 150 80 12 0
+
+12%: 350 21 21
+SubTotal: 350
+GST Amt: 42
+NET PAYABLE: 392
