@@ -43,17 +43,19 @@ def _numeric_tail(tokens: List[str]) -> List[float]:
     return list(reversed(vals))
 
 
-def _extract_totals(text: str) -> Dict[str, float]:
-    totals: Dict[str, float] = {}
+def _extract_totals(text: str) -> Dict[str, Optional[float]]:
+    totals: Dict[str, Optional[float]] = {}
     patterns = {
         "subtotal": r"(?:Sub\s*Total|SubTotal)\s*[:\-]?\s*(-?\d+(?:\.\d+)?)",
-        "gst_amount": r"(?:GST\s*Amt|GST\s*Amount)\s*[:\-]?\s*(-?\d+(?:\.\d+)?)",
+        "gst_amount": r"(?:GST\s*Amt|GST\s*Amount|Total\s*GST)\s*[:\-]?\s*(-?\d+(?:\.\d+)?)",
+        "rounding": r"(?:Rounding|Round\s*Off|Roundoff)\s*[:\-]?\s*(-?\d+(?:\.\d+)?)",
         "net_payable": r"(?:NET\s*PAYABLE|Net\s*Payable)\s*[:\-]?\s*(-?\d+(?:\.\d+)?)",
     }
     for key, pattern in patterns.items():
         m = re.search(pattern, text, flags=re.IGNORECASE)
         if m:
             totals[key] = float(m.group(1))
+    totals.setdefault("rounding", None)
     return totals
 
 
