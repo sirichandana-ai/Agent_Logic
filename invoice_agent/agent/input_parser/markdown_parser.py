@@ -118,16 +118,6 @@ def _split_html_table(text: str) -> List[Dict[str, Any]]:
         (i for i, h in enumerate(headers) if re.search(r"mfg|hsn|meg", h, re.IGNORECASE)),
         None,
     )
-    # Detect pack and batch column indices for concatenation
-    pack_idx = next(
-        (i for i, h in enumerate(headers) if re.fullmatch(r"pack|packing", h.strip(), re.IGNORECASE)),
-        None,
-    )
-    batch_idx = next(
-        (i for i, h in enumerate(headers) if re.fullmatch(r"batch|batchno|lot", h.strip(), re.IGNORECASE)),
-        None,
-    )
-
     for row_html in rows[1:]:
         cells_raw = re.findall(r"<td>(.*?)</td>", row_html, re.DOTALL | re.IGNORECASE)
         if not cells_raw:
@@ -135,8 +125,6 @@ def _split_html_table(text: str) -> List[Dict[str, Any]]:
         cells = [c.strip() for c in cells_raw]
 
         row_dict: Dict[str, Any] = {}
-        pack_value: Optional[str] = None
-
         for i, header in enumerate(headers):
             if i >= len(cells):
                 continue
@@ -152,25 +140,6 @@ def _split_html_table(text: str) -> List[Dict[str, Any]]:
                 continue
 
             row_dict[header] = value
-
-            if i == pack_idx:
-                pack_value = value
-
-        # Concatenate pack+batch (e.g. "5LTR" + "ER025006" → "5LTRER025006")
-        if pack_value and batch_idx is not None and batch_idx < len(cells):
-            batch_header = headers[batch_idx]
-            if batch_header in row_dict:
-                row_dict[batch_header] = pack_value + row_dict[batch_header]
-
-        # Strip pack suffix from product name if present
-        pn_header = next(
-            (h for h in headers if re.search(r"product\s*name|item\s*name", h, re.IGNORECASE)),
-            None,
-        )
-        if pack_value and pn_header and pn_header in row_dict:
-            pn = row_dict[pn_header]
-            if pn.endswith(pack_value):
-                row_dict[pn_header] = pn[: -len(pack_value)].strip()
 
         items.append(row_dict)
 

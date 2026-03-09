@@ -20,7 +20,7 @@ def _wrap_legacy_result(result, raw_text):
         invoice_gst_total = round(sum((r.get("gst_amount") or 0) for r in rows), 2)
         rounding = totals.get("rounding")
         computed_rounding = round(float(rounding or 0), 2)
-        invoice_net_payable = round(invoice_subtotal + invoice_gst_total - abs(computed_rounding), 2)
+        invoice_total = round(invoice_subtotal + invoice_gst_total - abs(computed_rounding), 2)
 
         return {
             "rows": rows,
@@ -28,12 +28,13 @@ def _wrap_legacy_result(result, raw_text):
                 "invoice_subtotal": invoice_subtotal,
                 "invoice_gst_total": invoice_gst_total,
                 "rounding": rounding,
-                "invoice_net_payable": invoice_net_payable,
+                "invoice_total": invoice_total,
+                "invoice_net_payable": invoice_total,
                 "flags": [],
             },
         }
 
-    return {"rows": [], "summary": {"invoice_subtotal": 0.0, "invoice_gst_total": 0.0, "rounding": None, "invoice_net_payable": 0.0, "flags": ["Unexpected process_invoice output shape"]}}
+    return {"rows": [], "summary": {"invoice_subtotal": 0.0, "invoice_gst_total": 0.0, "rounding": None, "invoice_total": 0.0, "invoice_net_payable": 0.0, "flags": ["Unexpected process_invoice output shape"]}}
 
 
 def main():

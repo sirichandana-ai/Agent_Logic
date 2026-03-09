@@ -34,5 +34,5 @@ def process_invoice(raw_text: str):
 
     return {
         "rows": map_to_database_rows(processed_rows),
-        "summary": aggregate_invoice(processed_rows, totals),
+        "summary": aggregate_invoice(processed_rows, totals, gst_summary),
     }
