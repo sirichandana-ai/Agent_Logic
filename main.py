@@ -15,7 +15,7 @@ def main():
     raw_text = Path(args.input_file).read_text(encoding="utf-8")
     result = process_invoice(raw_text)
 
-    output = json.dumps(result["rows"], indent=2, ensure_ascii=False)
+    output = json.dumps(result, indent=2, ensure_ascii=False)
     if args.output:
         Path(args.output).write_text(output, encoding="utf-8")
     sys.stdout.buffer.write(output.encode("utf-8"))
